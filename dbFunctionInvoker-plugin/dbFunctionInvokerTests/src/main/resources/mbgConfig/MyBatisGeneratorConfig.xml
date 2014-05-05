@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+  Copyright 2014 Mahiar Mody
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+
+<!--
+	Created by Mahiar Mody for testing the Db Function Invoker Plugin. The MyBatis Generator will read this file
+	and generate the MyBatis artefact files (Java model classes, Java client classes, and SQL Mapping XML Files)
+	containing the Database Function Invocations.
+
+	All properties in this file are read from the dbFunctionInvokerTests/pom.xml file.
+-->
+
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+
+	<!--
+	The <classPathEntry location="..." /> element is useful for specifying the classpath of the JDBC driver when using the
+	MyBatis Generator with ant.
+	However, when using the MyBatis Generator with Maven, this element may simply be omitted, provided that the JDBC driver
+	is specified as a Maven Dependency to the MyBatis Generator Plugin (and not just a project dependency). If this is not
+	the case, then the <classPathEntry location="" /> must be specified for maven builds too, just like it is with ant builds.
+
+	<classPathEntry location="" />
+	-->
+
+
+	<!-- Model type = Conditional -->
+
+	<context id="Conditional" targetRuntime="MyBatis3" defaultModelType="conditional">
+
+		<plugin type="org.mybatis.generator.plugins.dbFunctions.DbFunctionInvoker">
+			<property name="UserS.PassWord" value="md5(|COL_VAL|, 'US-ASCII')" />
+			<property name='UserS.last_name_sdx' value='soundex(|COL_VAL|)' />
+			<property name='UserS.ignoredCol' value='ShouldDoNothing(|COL_VAL|)' />
+			<property name='UsersToSkills.level' value='left(trim(|COL_VAL|), 10)' />
+			<property name="UserPhotos.photo_title" value="concat(substr(|COL_VAL|, 4, length(|COL_VAL|)), '-PHOTO')" />
+			<property name="UserTutorial.summary" value="concat(left(|COL_VAL|, 20), '...')" />
+		</plugin>
+
+		<jdbcConnection driverClass="${hsql.driver.class}"
+			connectionURL="${hsql.connection.URL}" userId="${hsql.user.id}" password="${hsql.user.password}" />
+
+		<javaModelGenerator targetPackage="conditional.modelDto" targetProject="${targetProject.dir}" />
+		<sqlMapGenerator targetPackage="conditional.sqlMaps" targetProject="${targetProject.dir}" />
+		<javaClientGenerator targetPackage="conditional.clientDao" targetProject="${targetProject.dir}" type="XMLMAPPER" />
+
+		<table tableName="Users" domainObjectName="Users">
+			<generatedKey column="user_id" sqlStatement="CALL IDENTITY();" identity="true" type="post" />
+			<ignoreColumn column="ignoredCol" />
+			<columnOverride column="last_name_sdx" property="surnameSound" />
+		</table>
+		<table tableName="UserSkills" domainObjectName="UserSkills">
+			<generatedKey column="skill_id" sqlStatement="CALL IDENTITY();" identity="true" type="post" />
+		</table>
+		<table tableName="UsersToSkills" domainObjectName="UsersToSkills" alias="AssocUS" />
+		<table tableName="UserPhotos" domainObjectName="UserPhotos" />
+		<table tableName="UserTutorial" domainObjectName="UserTutorial" />
+		<table tableName="UserBlog" domainObjectName="UserBlog" />
+
+	</context>
+
+
+	<!-- Model type = Hierarchical -->
+
+	<context id="Hierarchical" targetRuntime="MyBatis3" defaultModelType="hierarchical">
+
+		<plugin type="org.mybatis.generator.plugins.dbFunctions.DbFunctionInvoker">
+			<property name="UserS.PassWord" value="md5(|COL_VAL|, 'US-ASCII')" />
+			<property name='UserS.last_name_sdx' value='soundex(|COL_VAL|)' />
+			<property name='UserS.ignoredCol' value='ShouldDoNothing(|COL_VAL|)' />
+			<property name='UsersToSkills.level' value='left(trim(|COL_VAL|), 10)' />
+			<property name="UserPhotos.photo_title" value="concat(substr(|COL_VAL|, 4, length(|COL_VAL|)), '-PHOTO')" />
+			<property name="UserTutorial.summary" value="concat(left(|COL_VAL|, 20), '...')" />
+		</plugin>
+
+		<jdbcConnection driverClass="${hsql.driver.class}"
+			connectionURL="${hsql.connection.URL}" userId="${hsql.user.id}" password="${hsql.user.password}" />
+
+		<javaModelGenerator targetPackage="hierarchical.modelDto" targetProject="${targetProject.dir}" />
+		<sqlMapGenerator targetPackage="hierarchical.sqlMaps" targetProject="${targetProject.dir}" />
+		<javaClientGenerator targetPackage="hierarchical.clientDao" targetProject="${targetProject.dir}" type="XMLMAPPER" />
+
+		<table tableName="Users" domainObjectName="Users">
+			<generatedKey column="user_id" sqlStatement="CALL IDENTITY();" identity="true" type="post" />
+			<ignoreColumn column="ignoredCol" />
+			<columnOverride column="last_name_sdx" property="surnameSound" />
+		</table>
+		<table tableName="UserSkills" domainObjectName="UserSkills">
+			<generatedKey column="skill_id" sqlStatement="CALL IDENTITY();" identity="true" type="post" />
+		</table>
+		<table tableName="UsersToSkills" domainObjectName="UsersToSkills" alias="AssocUS" />
+		<table tableName="UserPhotos" domainObjectName="UserPhotos" />
+		<table tableName="UserTutorial" domainObjectName="UserTutorial" />
+		<table tableName="UserBlog" domainObjectName="UserBlog" />
+
+	</context>
+
+
+	<!-- Model type = Flat -->
+
+	<context id="Flat" targetRuntime="MyBatis3" defaultModelType="flat">
+
+		<plugin type="org.mybatis.generator.plugins.dbFunctions.DbFunctionInvoker">
+			<property name="UserS.PassWord" value="md5(|COL_VAL|, 'US-ASCII')" />
+			<property name='UserS.last_name_sdx' value='soundex(|COL_VAL|)' />
+			<property name='UserS.ignoredCol' value='ShouldDoNothing(|COL_VAL|)' />
+			<property name='UsersToSkills.level' value='left(trim(|COL_VAL|), 10)' />
+			<property name="UserPhotos.photo_title" value="concat(substr(|COL_VAL|, 4, length(|COL_VAL|)), '-PHOTO')" />
+			<property name="UserTutorial.summary" value="concat(left(|COL_VAL|, 20), '...')" />
+		</plugin>
+
+		<jdbcConnection driverClass="${hsql.driver.class}"
+			connectionURL="${hsql.connection.URL}" userId="${hsql.user.id}" password="${hsql.user.password}" />
+
+		<javaModelGenerator targetPackage="flat.modelDto" targetProject="${targetProject.dir}" />
+		<sqlMapGenerator targetPackage="flat.sqlMaps" targetProject="${targetProject.dir}" />
+		<javaClientGenerator targetPackage="flat.clientDao" targetProject="${targetProject.dir}" type="XMLMAPPER" />
+
+		<table tableName="Users" domainObjectName="Users">
+			<generatedKey column="user_id" sqlStatement="CALL IDENTITY();" identity="true" type="post" />
+			<ignoreColumn column="ignoredCol" />
+			<columnOverride column="last_name_sdx" property="surnameSound" />
+		</table>
+		<table tableName="UserSkills" domainObjectName="UserSkills">
+			<generatedKey column="skill_id" sqlStatement="CALL IDENTITY();" identity="true" type="post" />
+		</table>
+		<table tableName="UsersToSkills" domainObjectName="UsersToSkills" alias="AssocUS" />
+		<table tableName="UserPhotos" domainObjectName="UserPhotos" />
+		<table tableName="UserTutorial" domainObjectName="UserTutorial" />
+		<table tableName="UserBlog" domainObjectName="UserBlog" />
+
+	</context>
+
+</generatorConfiguration>

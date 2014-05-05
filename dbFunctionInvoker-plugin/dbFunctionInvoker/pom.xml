@@ -1,0 +1,129 @@
+<?xml version="1.0"?>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>org.mybatis.generator</groupId>
+		<artifactId>dbFunctionInvoker-plugin</artifactId>
+		<version>1.0.0</version>
+	</parent>
+
+	<artifactId>DbFunctionInvoker</artifactId>
+	<packaging>jar</packaging>
+
+	<name>DbFunctionInvoker Source Code</name>
+	<url>http://maven.apache.org</url>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<bcp6>/usr/lib/jvm/oldSunJres/jre1.6.0_45/lib</bcp6> <!-- Cross compile bootclasspath for jdk 6 -->
+	</properties>
+
+	<dependencies>
+		<!-- The MyBatis Generator dependency follows - required to compile the Db Function Invoker plugin source files -->
+		<dependency>
+			<groupId>org.mybatis.generator</groupId>
+			<artifactId>mybatis-generator-maven-plugin</artifactId>
+			<version>1.3.2</version>
+		</dependency>
+	</dependencies>
+
+
+	<build>
+		<plugins>
+
+			<!-- Start of the compiler versioning plugin -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.1</version>
+				<executions>
+					<execution>
+						<id>default-compile</id> <!-- Override Maven's "default-compile" <execution> to use java 5 -->
+						<phase>compile</phase> <!-- binds the goal: compiler:compile by default, but added just for clarity -->
+						<configuration>
+							<source>1.6</source>
+							<target>1.6</target>
+							<fork>true</fork>
+							<compilerVersion>1.7</compilerVersion>
+							<forceJavacCompilerUse>true</forceJavacCompilerUse>
+							<debug>false</debug>
+							<optimize>true</optimize>
+							<showDeprecation>true</showDeprecation>
+							<showWarnings>true</showWarnings>
+							<compilerArguments>
+								<bootclasspath>${bcp6}/rt.jar${path.separator}${bcp6}/alt-rt.jar${path.separator}${bcp6}/alt-string.jar${path.separator}${bcp6}/charsets.jar${path.separator}${bcp6}/deploy.jar${path.separator}${bcp6}/javaws.jar${path.separator}${bcp6}/jce.jar${path.separator}${bcp6}/jsse.jar${path.separator}${bcp6}/management-agent.jar${path.separator}${bcp6}/plugin.jar${path.separator}${bcp6}/resources.jar</bootclasspath>
+							</compilerArguments>
+							<compilerArgument>-Xlint:all</compilerArgument>
+						</configuration>
+						<goals>
+							<goal>compile</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<!-- End of the compiler versioning plugin -->
+
+
+			<!-- Start of the javadoc plugin required for generating the javadocs -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<version>2.9.1</version>
+				<configuration>
+					<show>protected</show>
+				</configuration>
+				<executions>
+					<execution>
+						<phase>package</phase> <!-- package is the default lifecycle phase when this plugin would run anyway, but added in just for clarity -->
+						<goals>
+							<goal>jar</goal> <!-- Conveniently places the generated java docs into a jar archive -->
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<!-- End of the javadoc plugin required for generating the javadocs -->
+
+
+
+			<!-- Start of the assembly plugin required for generating the compressed (zip, tar.gz) archives for 3rd party distribution -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-assembly-plugin</artifactId>
+				<version>2.4</version>
+				<configuration>
+					<descriptors>
+						<descriptor>src/main/assembly/binZip.xml</descriptor> <!-- ${basedir}/src/main/assembly is the standard location for assembly descriptors. -->
+						<descriptor>src/main/assembly/srcZip.xml</descriptor>
+					</descriptors>
+					<finalName>mbg-plugin-${project.artifactId}-${project.version}</finalName>
+					<tarLongFileMode>gnu</tarLongFileMode>
+				</configuration>
+				<executions>
+					<execution>
+						<phase>package</phase> <!-- Default phase, but added for clarity. -->
+						<goals>
+							<goal>single</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<!-- End of the assembly plugin required for generating the compressed (zip, tar.gz) archives for 3rd party distribution -->
+
+		</plugins>
+
+
+
+	</build>
+
+<!--
+	<reporting>
+		<plugins>
+
+		</plugins>
+	</reporting>
+-->
+
+</project>
