@@ -80,7 +80,7 @@
 		a project dependency. -->
 		<dependency>
 			<groupId>${project.groupId}</groupId>
-			<artifactId>dbFunctionInvoker</artifactId>
+			<artifactId>DbFunctionInvoker</artifactId>
 			<version>${project.version}</version>
 		</dependency>
 
@@ -267,7 +267,7 @@
 					<!-- Add the MyBatis Generator Db Function Invoker Plugin as a dependency to the Maven MBG plugin here -->
 					<dependency>
 						<groupId>${project.groupId}</groupId>
-						<artifactId>dbFunctionInvoker</artifactId>
+						<artifactId>DbFunctionInvoker</artifactId>
 						<version>${project.version}</version>
 						<scope>runtime</scope>
 					</dependency>
